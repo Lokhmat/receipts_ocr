@@ -1,0 +1,32 @@
+# Exported from Render on 2025-03-24T18:31:31Z
+databases:
+- name: postgres
+  databaseName: receipts_2anp
+  user: receipts_2anp_user
+  plan: free
+  region: frankfurt
+  ipAllowList:
+  - source: 0.0.0.0/0
+    description: everywhere
+  postgresMajorVersion: "16"
+services:
+- type: web
+  name: receipts_ocr
+  runtime: docker
+  repo: https://github.com/Lokhmat/receipts_ocr
+  plan: free
+  envVars:
+  - key: TOGETHER_API_KEY
+    sync: false
+  - key: DATABASE_URL
+    sync: false
+  - key: POSTGRES_DB
+    sync: false
+  - key: POSTGRES_PASSWORD
+    sync: false
+  - key: POSTGRES_USER
+    sync: false
+  region: frankfurt
+  dockerContext: .
+  dockerfilePath: ./Dockerfile
+version: "1"
